@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Андаман Обмен — рубли и USDT в баты на Пхукете</title>
-<meta name="description" content="Обмен рублей и USDT на тайские баты на Пхукете. Наличные с доставкой по острову, переводы на тайский счёт, актуальный курс и калькулятор.">
+<title>Андаман Обмен — USDT в баты на Пхукете</title>
+<meta name="description" content="Обмен USDT на тайские баты на Пхукете. Наличные с доставкой по острову, переводы на тайский счёт, актуальный курс и калькулятор.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -144,6 +144,9 @@
   .feature-icon svg { width: 22px; height: 22px; stroke: var(--accent-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .feature h3 { font-size: 18px; margin-bottom: 6px; letter-spacing: -.01em; }
   .feature p { color: var(--muted); font-size: 15px; }
+  @media (min-width: 901px) {
+    .feature:last-child:nth-child(3n + 2) { grid-column: span 2; }
+  }
 
   footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 40px; }
   .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
@@ -182,8 +185,8 @@
   <div class="hero" id="rates">
     <div>
       <span class="tag" data-i18n="hero.tag">Пхукет · наличные баты с доставкой</span>
-      <h1 data-i18n="hero.title">Рубли и USDT в <em>баты</em> на Пхукете</h1>
-      <p class="lead" data-i18n="hero.lead">Меняем рубли и USDT на тайские баты и обратно. Наличные с доставкой по всему острову или перевод на тайский счёт.</p>
+      <h1 data-i18n="hero.title">USDT в <em>баты</em> на Пхукете</h1>
+      <p class="lead" data-i18n="hero.lead">Меняем USDT на тайские баты и обратно. Наличные с доставкой по всему острову или перевод на тайский счёт.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://t.me/PhuketObmenkaBot" target="_blank" rel="noopener" data-i18n="hero.cta">Обменять в Telegram →</a>
         <a class="btn btn-ghost" href="#calc" data-i18n="hero.calc">Рассчитать сумму</a>
@@ -203,14 +206,6 @@
       <div class="rate-row">
         <div><b>THB → USDT</b><small data-i18n="rates.perUsdt">฿ за 1 USDT</small></div>
         <div class="rate-val na" id="r-localToUsdt">—</div>
-      </div>
-      <div class="rate-row">
-        <div><b>RUB → THB</b><small data-i18n="rates.perLocal">₽ за 1 ฿</small></div>
-        <div class="rate-val na" id="r-rubToLocal">—</div>
-      </div>
-      <div class="rate-row">
-        <div><b>THB → RUB</b><small data-i18n="rates.perLocal">₽ за 1 ฿</small></div>
-        <div class="rate-val na" id="r-localToRub">—</div>
       </div>
       <p class="rate-foot" id="updated">Курс обновляется автоматически</p>
     </div>
@@ -248,14 +243,12 @@
       </div>
       <div>
         <div class="switch" role="tablist">
-          <button class="active" data-dir="rub-local" type="button">RUB → THB</button>
-          <button data-dir="usdt-local" type="button">USDT → THB</button>
-          <button data-dir="local-rub" type="button">THB → RUB</button>
+          <button class="active" data-dir="usdt-local" type="button">USDT → THB</button>
           <button data-dir="local-usdt" type="button">THB → USDT</button>
         </div>
         <label class="field">
           <span data-i18n="calc.give">Отдаёте</span>
-          <span class="field-row"><input id="amount" type="number" min="0" step="any" value="100000" inputmode="decimal"><b class="cur" id="cur-from">RUB</b></span>
+          <span class="field-row"><input id="amount" type="number" min="0" step="any" value="1000" inputmode="decimal"><b class="cur" id="cur-from">USDT</b></span>
         </label>
         <div class="field">
           <span data-i18n="calc.get">Получаете ориентировочно</span>
@@ -279,11 +272,6 @@
         <p data-i18n="f1.text">Патонг, Карон, Ката, Раваи, Камала, Банг Тао и другие районы.</p>
       </div>
       <div class="feature">
-        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-        <h3 data-i18n="f2.title">Рубли с российских карт</h3>
-        <p data-i18n="f2.text">Переведите рубли с карты или счёта — получите баты на месте.</p>
-      </div>
-      <div class="feature">
         <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 8h8M12 8v9"/></svg></div>
         <h3 data-i18n="f3.title">USDT</h3>
         <p data-i18n="f3.text">Принимаем USDT в сетях TRC-20 и ERC-20.</p>
@@ -296,7 +284,7 @@
       <div class="feature">
         <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
         <h3 data-i18n="f5.title">Крупные суммы</h3>
-        <p data-i18n="f5.text">Индивидуальный курс для операций от 1 млн ₽.</p>
+        <p data-i18n="f5.text">Индивидуальный курс для крупных операций.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
@@ -327,28 +315,26 @@
     return res.json();
   };
 
-  // Источники по приоритету; каждый возвращает { usdLocal, usdRub, updatedAt }.
+  // Источники по приоритету; каждый возвращает { usdLocal, updatedAt }.
   const lc = LOCAL.toLowerCase();
   const SOURCES = [
     async () => {
-      const { tether } = await getJson(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=${lc},rub&include_last_updated_at=true`);
-      return { usdLocal: tether[lc], usdRub: tether.rub, updatedAt: tether.last_updated_at * 1000 };
+      const { tether } = await getJson(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=${lc}&include_last_updated_at=true`);
+      return { usdLocal: tether[lc], updatedAt: tether.last_updated_at * 1000 };
     },
     async () => {
       const json = await getJson("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usdt.min.json");
-      return { usdLocal: json.usdt[lc], usdRub: json.usdt.rub, updatedAt: Date.parse(json.date) };
+      return { usdLocal: json.usdt[lc], updatedAt: Date.parse(json.date) };
     },
     async () => {
       const json = await getJson("https://open.er-api.com/v6/latest/USD");
-      return { usdLocal: json.rates[LOCAL], usdRub: json.rates.RUB, updatedAt: json.time_last_update_unix * 1000 };
+      return { usdLocal: json.rates[LOCAL], updatedAt: json.time_last_update_unix * 1000 };
     },
   ];
 
   // Направления обмена: key — поле котировки, amount — сумма по умолчанию.
   const DIRS = {
-    "rub-local": { from: "RUB", to: LOCAL, key: "rubToLocal", amount: 100000, calc: (a, r) => a / r },
     "usdt-local": { from: "USDT", to: LOCAL, key: "usdtToLocal", amount: 1000, calc: (a, r) => a * r },
-    "local-rub": { from: LOCAL, to: "RUB", key: "localToRub", amount: 30000, calc: (a, r) => a * r },
     "local-usdt": { from: LOCAL, to: "USDT", key: "localToUsdt", amount: 30000, calc: (a, r) => a / r },
   };
 
@@ -368,21 +354,20 @@
       "calc.rate": "Курс: ",
     },
     en: {
-      "meta.title": "Andaman Exchange — rubles and USDT to baht in Phuket",
-      "meta.desc": "Exchange rubles and USDT for Thai baht in Phuket. Cash delivery across the island, transfers to Thai bank accounts, live rate and calculator.",
+      "meta.title": "Andaman Exchange — USDT to baht in Phuket",
+      "meta.desc": "Exchange USDT for Thai baht in Phuket. Cash delivery across the island, transfers to Thai bank accounts, live rate and calculator.",
       "brand": "Andaman Exchange",
       "nav.rates": "Rates",
       "nav.how": "How it works",
       "nav.calc": "Calculator",
       "hero.tag": "Phuket · cash baht delivered",
-      "hero.title": "Rubles and USDT to <em>baht</em> in Phuket",
-      "hero.lead": "We exchange rubles and USDT for Thai baht and back. Cash delivered anywhere on the island or a transfer to a Thai bank account.",
+      "hero.title": "USDT to <em>baht</em> in Phuket",
+      "hero.lead": "We exchange USDT for Thai baht and back. Cash delivered anywhere on the island or a transfer to a Thai bank account.",
       "hero.cta": "Exchange on Telegram →",
       "hero.calc": "Calculate amount",
       "hero.note": "The rate is locked in when you confirm the deal with a manager.",
       "rates.title": "Exchange rate",
       "rates.perUsdt": "฿ per 1 USDT",
-      "rates.perLocal": "₽ per 1 ฿",
       "how.title": "Three steps to a deal",
       "how.text": "No sign-up and no forms — everything happens in a single chat.",
       "how.s1.title": "Message us on Telegram",
@@ -400,14 +385,12 @@
       "why.text": "We help tourists, winter residents and those who have moved to Phuket for good.",
       "f1.title": "Delivery across the island",
       "f1.text": "Patong, Karon, Kata, Rawai, Kamala, Bang Tao and other areas.",
-      "f2.title": "Rubles from Russian cards",
-      "f2.text": "Transfer rubles from a card or account — get baht on the spot.",
       "f3.title": "USDT",
       "f3.text": "We accept USDT on TRC-20 and ERC-20.",
       "f4.title": "Transfers to Thai accounts",
       "f4.text": "Pay for a villa, bike rental, school or other services directly.",
       "f5.title": "Large amounts",
-      "f5.text": "Personal rate for deals from 1M ₽.",
+      "f5.text": "Personal rate for large deals.",
       "f6.title": "Fast",
       "f6.text": "Cash is usually delivered within 1–2 hours after confirmation.",
       "footer.disclaimer": "Rates are for information only and do not constitute a public offer.",
@@ -427,14 +410,12 @@
   let lang = "ru";
   let quote = null;
   let status = "loading";
-  let dir = "rub-local";
+  let dir = "usdt-local";
 
   const t = (key) => I18N[lang][key] ?? I18N.ru[key];
   const locale = () => (lang === "en" ? "en-US" : "ru-RU");
   const fmt = (n, d = 2) => new Intl.NumberFormat(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }).format(n);
-  const rateText = (key) => key.includes("Usdt")
-    ? `1 USDT = ${fmt(quote[key])} ${SYMBOL}`
-    : `1 ${SYMBOL} = ${fmt(quote[key], 3)} ₽`;
+  const rateText = (key) => `1 USDT = ${fmt(quote[key])} ${SYMBOL}`;
 
   function setLang(next) {
     lang = I18N[next] ? next : "ru";
@@ -457,7 +438,7 @@
     for (const source of SOURCES) {
       try {
         const r = await source();
-        if (r.usdLocal > 0 && r.usdRub > 0) return r;
+        if (r.usdLocal > 0) return r;
       } catch (e) {
         console.warn(e);
       }
@@ -465,13 +446,10 @@
     throw new Error("Все источники курса недоступны");
   }
 
-  function withMarkup({ usdLocal, usdRub, updatedAt }) {
-    const rubPerLocal = usdRub / usdLocal;
+  function withMarkup({ usdLocal, updatedAt }) {
     return {
       usdtToLocal: usdLocal * (1 - MARKUP),
       localToUsdt: usdLocal * (1 + MARKUP),
-      rubToLocal: rubPerLocal * (1 + MARKUP),
-      localToRub: rubPerLocal * (1 - MARKUP),
       updatedAt: updatedAt || Date.now(),
     };
   }
@@ -488,9 +466,9 @@
 
   function render() {
     const ok = status === "ok";
-    for (const key of ["usdtToLocal", "localToUsdt", "rubToLocal", "localToRub"]) {
+    for (const key of ["usdtToLocal", "localToUsdt"]) {
       const el = $("r-" + key);
-      el.textContent = ok ? fmt(quote[key], key.includes("Usdt") ? 2 : 3) : status === "error" ? t("rate.na") : "—";
+      el.textContent = ok ? fmt(quote[key]) : status === "error" ? t("rate.na") : "—";
       el.classList.toggle("na", !ok);
     }
     $("live").classList.toggle("on", ok);
