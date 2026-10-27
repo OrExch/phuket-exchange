@@ -315,12 +315,36 @@
 </footer>
 
 <script>
-  const RATE_URL = "rate.js";
   const LOCAL = "THB";
   const SYMBOL = "฿";
+  // При MARKUP > 0 наценка идёт в пользу сервиса: клиент получает меньше и платит больше рыночного курса.
+  const MARKUP = 0;
   const $ = (id) => document.getElementById(id);
 
-  // Направления обмена: key — поле в rate.js, amount — сумма по умолчанию.
+  const getJson = async (url) => {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`${url} → ${res.status}`);
+    return res.json();
+  };
+
+  // Источники по приоритету; каждый возвращает { usdLocal, usdRub, updatedAt }.
+  const lc = LOCAL.toLowerCase();
+  const SOURCES = [
+    async () => {
+      const { tether } = await getJson(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=${lc},rub&include_last_updated_at=true`);
+      return { usdLocal: tether[lc], usdRub: tether.rub, updatedAt: tether.last_updated_at * 1000 };
+    },
+    async () => {
+      const json = await getJson("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usdt.min.json");
+      return { usdLocal: json.usdt[lc], usdRub: json.usdt.rub, updatedAt: Date.parse(json.date) };
+    },
+    async () => {
+      const json = await getJson("https://open.er-api.com/v6/latest/USD");
+      return { usdLocal: json.rates[LOCAL], usdRub: json.rates.RUB, updatedAt: json.time_last_update_unix * 1000 };
+    },
+  ];
+
+  // Направления обмена: key — поле котировки, amount — сумма по умолчанию.
   const DIRS = {
     "rub-local": { from: "RUB", to: LOCAL, key: "rubToLocal", amount: 100000, calc: (a, r) => a / r },
     "usdt-local": { from: "USDT", to: LOCAL, key: "usdtToLocal", amount: 1000, calc: (a, r) => a * r },
@@ -429,20 +453,32 @@
     return new URLSearchParams(location.search).get("lang") || saved || (navigator.language.startsWith("ru") ? "ru" : "en");
   }
 
-  function fetchRate() {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = RATE_URL + "?t=" + Date.now();
-      s.onload = () => { s.remove(); window.RATE?.[LOCAL] ? resolve(window.RATE) : reject(new Error("RATE missing")); };
-      s.onerror = () => { s.remove(); reject(new Error("rate.js not loaded")); };
-      document.head.appendChild(s);
-    });
+  async function fetchRate() {
+    for (const source of SOURCES) {
+      try {
+        const r = await source();
+        if (r.usdLocal > 0 && r.usdRub > 0) return r;
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+    throw new Error("Все источники курса недоступны");
+  }
+
+  function withMarkup({ usdLocal, usdRub, updatedAt }) {
+    const rubPerLocal = usdRub / usdLocal;
+    return {
+      usdtToLocal: usdLocal * (1 - MARKUP),
+      localToUsdt: usdLocal * (1 + MARKUP),
+      rubToLocal: rubPerLocal * (1 + MARKUP),
+      localToRub: rubPerLocal * (1 - MARKUP),
+      updatedAt: updatedAt || Date.now(),
+    };
   }
 
   async function loadRates() {
     try {
-      const json = await fetchRate();
-      quote = { ...json[LOCAL], updatedAt: json.updatedAt };
+      quote = withMarkup(await fetchRate());
       status = "ok";
     } catch (e) {
       if (!quote) status = "error";

@@ -1,0 +1,1 @@
+window.RATE = {"updatedAt":"2026-10-26T22:26:43.0818798Z","THB":{"usdtToLocal":33.79,"localToUsdt":33.79,"rubToLocal":2.3907,"localToRub":2.3907},"AED":{"usdtToLocal":3.673,"localToUsdt":3.673,"rubToLocal":21.993,"localToRub":21.993}};

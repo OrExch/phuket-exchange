@@ -1,10 +1,8 @@
-name: Обновить курс и опубликовать
+name: Опубликовать сайт
 
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -25,20 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Получить курс с Google Finance
-        run: node scripts/update-rate.js
-        env:
-          MARKUP: "0"
-          CURRENCIES: "THB"
-
       - name: Собрать сайт
         run: |
           mkdir _site
-          cp index.html rate.js _site/
+          cp index.html _site/
 
       - uses: actions/configure-pages@v5
 
