@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Андаман Обмен — рубли и USDT в баты на Пхукете</title>
+<meta name="description" content="Обмен рублей и USDT на тайские баты на Пхукете. Наличные с доставкой по острову, переводы на тайский счёт, актуальный курс и калькулятор.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5ef;
+    --surface: #ffffff;
+    --ink: #0f2326;
+    --muted: #5b6b6c;
+    --line: #e5e3da;
+    --accent: #0b9ea8;
+    --accent-dark: #077a83;
+    --accent-soft: #dff3f4;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Manrope", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1160px, 100% - 40px); margin: 0 auto; }
+
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(247, 245, 239, .85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--ink); color: #fff;
+    display: grid; place-items: center; font-size: 17px;
+    transform: rotate(45deg);
+  }
+  .logo-mark span { transform: rotate(-45deg); }
+  .nav-links { display: flex; gap: 28px; font-weight: 600; font-size: 15px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .lang { display: inline-flex; border: 1.5px solid var(--line); border-radius: 999px; padding: 3px; }
+  .lang button {
+    border: 0; background: none; font: inherit; font-size: 13px; font-weight: 700; color: var(--muted);
+    padding: 6px 10px; border-radius: 999px; cursor: pointer;
+  }
+  .lang button.active { background: var(--ink); color: #fff; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 26px; border-radius: 999px;
+    font-weight: 700; font-size: 15px; font-family: inherit;
+    border: 0; cursor: pointer; transition: .2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .btn-sm { padding: 10px 18px; font-size: 14px; }
+
+  /* Hero */
+  .hero { padding: 80px 0 64px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-soft); color: var(--accent-dark);
+    padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  }
+  .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.03; letter-spacing: -.045em; font-weight: 800; margin: 22px 0 22px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { font-size: 19px; color: var(--muted); max-width: 520px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .hero-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+
+  .rate-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 28px; padding: 30px;
+    box-shadow: 0 30px 60px -30px rgba(15, 35, 38, .18);
+  }
+  .rate-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .rate-card-head h3 { font-size: 16px; font-weight: 700; }
+  .live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #c4ccc8; }
+  .live.on i { background: var(--accent); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(11,158,168,.5); } 100% { box-shadow: 0 0 0 10px rgba(11,158,168,0); } }
+  .rate-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+  .rate-row small { display: block; color: var(--muted); font-size: 12px; font-weight: 500; }
+  .rate-row b { font-size: 15px; }
+  .rate-val { font-size: 26px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .rate-val.na { font-size: 16px; color: var(--muted); font-weight: 600; }
+  .rate-foot { font-size: 12px; color: var(--muted); padding-top: 14px; border-top: 1px solid var(--line); }
+
+  /* Sections */
+  section { padding: 72px 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+  h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -.035em; line-height: 1.08; font-weight: 800; }
+  .section-head p { color: var(--muted); max-width: 420px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+  .step-num { font-size: 14px; font-weight: 800; color: var(--accent); margin-bottom: 40px; }
+  .step h3 { font-size: 21px; letter-spacing: -.02em; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: 15px; }
+
+  /* Calculator */
+  .calc { background: var(--ink); color: #fff; border-radius: 32px; padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .calc h2 { color: #fff; }
+  .calc > div > p { color: #a3b6b8; margin-top: 14px; max-width: 380px; }
+  .switch { display: flex; flex-wrap: wrap; gap: 6px; background: rgba(255,255,255,.08); border-radius: 22px; padding: 5px; margin-bottom: 22px; }
+  .switch button {
+    flex: 1 1 calc(50% - 6px); border: 0; background: transparent; color: #a3b6b8; font: inherit; font-weight: 700; font-size: 14px;
+    padding: 10px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .switch button.active { background: #fff; color: var(--ink); }
+  .field { display: block; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 18px; padding: 16px 20px; margin-bottom: 12px; }
+  .field span { display: block; font-size: 13px; color: #a3b6b8; margin-bottom: 4px; }
+  .field-row { display: flex; align-items: center; gap: 12px; }
+  .field input {
+    flex: 1; min-width: 0; background: none; border: 0; outline: none; color: #fff;
+    font: inherit; font-size: 30px; font-weight: 800; letter-spacing: -.02em;
+  }
+  .field input::-webkit-outer-spin-button, .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .field input[type=number] { -moz-appearance: textfield; }
+  .field .cur { font-weight: 800; color: #6fe3ea; }
+  .field output { font-size: 30px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .calc-note { font-size: 13px; color: #a3b6b8; margin: 6px 0 20px; }
+  .calc .btn-primary { width: 100%; }
+
+  /* Features */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .feature { background: var(--surface); padding: 32px; }
+  .feature-icon { width: 46px; height: 46px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 22px; }
+  .feature-icon svg { width: 22px; height: 22px; stroke: var(--accent-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .feature h3 { font-size: 18px; margin-bottom: 6px; letter-spacing: -.01em; }
+  .feature p { color: var(--muted); font-size: 15px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 40px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hero, .calc { grid-template-columns: 1fr; }
+    .hero { padding-top: 48px; gap: 40px; }
+    .steps, .features { grid-template-columns: 1fr; }
+    .calc { padding: 32px 22px; gap: 28px; }
+    section { padding: 52px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="logo-mark"><span>A</span></span><span data-i18n="brand">Андаман Обмен</span></a>
+    <nav class="nav-links">
+      <a href="#rates" data-i18n="nav.rates">Курсы</a>
+      <a href="#how" data-i18n="nav.how">Как это работает</a>
+      <a href="#calc" data-i18n="nav.calc">Калькулятор</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Язык / Language">
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="https://t.me/your_exchange_bot" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero" id="rates">
+    <div>
+      <span class="tag" data-i18n="hero.tag">Пхукет · наличные баты с доставкой</span>
+      <h1 data-i18n="hero.title">Рубли и USDT в <em>баты</em> на Пхукете</h1>
+      <p class="lead" data-i18n="hero.lead">Меняем рубли и USDT на тайские баты и обратно. Наличные с доставкой по всему острову или перевод на тайский счёт.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://t.me/your_exchange_bot" target="_blank" rel="noopener" data-i18n="hero.cta">Обменять в Telegram →</a>
+        <a class="btn btn-ghost" href="#calc" data-i18n="hero.calc">Рассчитать сумму</a>
+      </div>
+      <p class="hero-note" data-i18n="hero.note">Курс фиксируется при согласовании сделки с менеджером.</p>
+    </div>
+
+    <div class="rate-card">
+      <div class="rate-card-head">
+        <h3 data-i18n="rates.title">Курс обмена</h3>
+        <span class="live" id="live"><i></i><span id="live-text">Загрузка…</span></span>
+      </div>
+      <div class="rate-row">
+        <div><b>USDT → THB</b><small data-i18n="rates.perUsdt">฿ за 1 USDT</small></div>
+        <div class="rate-val na" id="r-usdtToLocal">—</div>
+      </div>
+      <div class="rate-row">
+        <div><b>THB → USDT</b><small data-i18n="rates.perUsdt">฿ за 1 USDT</small></div>
+        <div class="rate-val na" id="r-localToUsdt">—</div>
+      </div>
+      <div class="rate-row">
+        <div><b>RUB → THB</b><small data-i18n="rates.perLocal">₽ за 1 ฿</small></div>
+        <div class="rate-val na" id="r-rubToLocal">—</div>
+      </div>
+      <div class="rate-row">
+        <div><b>THB → RUB</b><small data-i18n="rates.perLocal">₽ за 1 ฿</small></div>
+        <div class="rate-val na" id="r-localToRub">—</div>
+      </div>
+      <p class="rate-foot" id="updated">Курс обновляется автоматически</p>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="section-head">
+      <h2 data-i18n="how.title">Три шага до сделки</h2>
+      <p data-i18n="how.text">Без регистрации на сайте и лишних форм — всё общение в одном чате.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 data-i18n="how.s1.title">Напишите в Telegram</h3>
+        <p data-i18n="how.s1.text">Укажите сумму, валюту и район острова — менеджер ответит в течение нескольких минут.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 data-i18n="how.s2.title">Зафиксируйте курс</h3>
+        <p data-i18n="how.s2.text">Согласуем итоговый курс, способ оплаты и удобное время доставки.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 data-i18n="how.s3.title">Получите баты</h3>
+        <p data-i18n="how.s3.text">Курьер привезёт наличные в отель или на виллу, либо переведём баты на тайский счёт.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="calc">
+    <div class="calc">
+      <div>
+        <h2 data-i18n="calc.title">Калькулятор обмена</h2>
+        <p data-i18n="calc.text">Ориентировочный расчёт по текущему курсу. Итоговый курс зависит от суммы и способа оплаты.</p>
+      </div>
+      <div>
+        <div class="switch" role="tablist">
+          <button class="active" data-dir="rub-local" type="button">RUB → THB</button>
+          <button data-dir="usdt-local" type="button">USDT → THB</button>
+          <button data-dir="local-rub" type="button">THB → RUB</button>
+          <button data-dir="local-usdt" type="button">THB → USDT</button>
+        </div>
+        <label class="field">
+          <span data-i18n="calc.give">Отдаёте</span>
+          <span class="field-row"><input id="amount" type="number" min="0" step="any" value="100000" inputmode="decimal"><b class="cur" id="cur-from">RUB</b></span>
+        </label>
+        <div class="field">
+          <span data-i18n="calc.get">Получаете ориентировочно</span>
+          <span class="field-row"><output id="result">—</output><b class="cur" id="cur-to">THB</b></span>
+        </div>
+        <p class="calc-note" id="calc-note">Ожидаем котировку…</p>
+        <a class="btn btn-primary" href="https://t.me/your_exchange_bot" target="_blank" rel="noopener" data-i18n="calc.cta">Зафиксировать курс в Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="why.title">Почему выбирают нас</h2>
+      <p data-i18n="why.text">Помогаем туристам, зимовщикам и тем, кто переехал на Пхукет надолго.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="1" y="7" width="13" height="10" rx="1"/><path d="M14 10h4l3 3v4h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+        <h3 data-i18n="f1.title">Доставка по острову</h3>
+        <p data-i18n="f1.text">Патонг, Карон, Ката, Раваи, Камала, Банг Тао и другие районы.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3 data-i18n="f2.title">Рубли с российских карт</h3>
+        <p data-i18n="f2.text">Переведите рубли с карты или счёта — получите баты на месте.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 8h8M12 8v9"/></svg></div>
+        <h3 data-i18n="f3.title">USDT</h3>
+        <p data-i18n="f3.text">Принимаем USDT в сетях TRC-20 и ERC-20.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M12 3l9 5H3z"/></svg></div>
+        <h3 data-i18n="f4.title">Перевод на тайский счёт</h3>
+        <p data-i18n="f4.text">Оплата аренды виллы, байка, школы или других услуг напрямую.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <h3 data-i18n="f5.title">Крупные суммы</h3>
+        <p data-i18n="f5.text">Индивидуальный курс для операций от 1 млн ₽.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3 data-i18n="f6.title">Быстро</h3>
+        <p data-i18n="f6.text">Обычно привозим наличные в течение 1–2 часов после согласования.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year"></span> <span data-i18n="brand">Андаман Обмен</span></span>
+    <span data-i18n="footer.disclaimer">Котировки носят информационный характер и не являются публичной офертой.</span>
+  </div>
+</footer>
+
+<script>
+  const RATE_URL = "rate.js";
+  const LOCAL = "THB";
+  const SYMBOL = "฿";
+  const $ = (id) => document.getElementById(id);
+
+  // Направления обмена: key — поле в rate.js, amount — сумма по умолчанию.
+  const DIRS = {
+    "rub-local": { from: "RUB", to: LOCAL, key: "rubToLocal", amount: 100000, calc: (a, r) => a / r },
+    "usdt-local": { from: "USDT", to: LOCAL, key: "usdtToLocal", amount: 1000, calc: (a, r) => a * r },
+    "local-rub": { from: LOCAL, to: "RUB", key: "localToRub", amount: 30000, calc: (a, r) => a * r },
+    "local-usdt": { from: LOCAL, to: "USDT", key: "localToUsdt", amount: 30000, calc: (a, r) => a / r },
+  };
+
+  // Русские тексты берутся из разметки, здесь — только английские и динамические строки.
+  const I18N = {
+    ru: {
+      "meta.title": document.title,
+      "meta.desc": document.querySelector('meta[name="description"]').content,
+      "live.loading": "Загрузка…",
+      "live.on": "Онлайн",
+      "live.off": "Нет связи",
+      "rate.na": "Уточняется",
+      "rate.updated": "Обновлено в ",
+      "rate.auto": "Курс обновляется автоматически",
+      "calc.wait": "Ожидаем котировку…",
+      "calc.na": "Котировка недоступна — уточните курс в Telegram.",
+      "calc.rate": "Курс: ",
+    },
+    en: {
+      "meta.title": "Andaman Exchange — rubles and USDT to baht in Phuket",
+      "meta.desc": "Exchange rubles and USDT for Thai baht in Phuket. Cash delivery across the island, transfers to Thai bank accounts, live rate and calculator.",
+      "brand": "Andaman Exchange",
+      "nav.rates": "Rates",
+      "nav.how": "How it works",
+      "nav.calc": "Calculator",
+      "hero.tag": "Phuket · cash baht delivered",
+      "hero.title": "Rubles and USDT to <em>baht</em> in Phuket",
+      "hero.lead": "We exchange rubles and USDT for Thai baht and back. Cash delivered anywhere on the island or a transfer to a Thai bank account.",
+      "hero.cta": "Exchange on Telegram →",
+      "hero.calc": "Calculate amount",
+      "hero.note": "The rate is locked in when you confirm the deal with a manager.",
+      "rates.title": "Exchange rate",
+      "rates.perUsdt": "฿ per 1 USDT",
+      "rates.perLocal": "₽ per 1 ฿",
+      "how.title": "Three steps to a deal",
+      "how.text": "No sign-up and no forms — everything happens in a single chat.",
+      "how.s1.title": "Message us on Telegram",
+      "how.s1.text": "Tell us the amount, currency and your area — a manager will reply within minutes.",
+      "how.s2.title": "Lock in the rate",
+      "how.s2.text": "We agree on the final rate, payment method and a convenient delivery time.",
+      "how.s3.title": "Receive your baht",
+      "how.s3.text": "A courier brings cash to your hotel or villa, or we transfer baht to a Thai bank account.",
+      "calc.title": "Exchange calculator",
+      "calc.text": "An estimate based on the current rate. The final rate depends on the amount and payment method.",
+      "calc.give": "You give",
+      "calc.get": "You get (approx.)",
+      "calc.cta": "Lock in the rate on Telegram",
+      "why.title": "Why clients choose us",
+      "why.text": "We help tourists, winter residents and those who have moved to Phuket for good.",
+      "f1.title": "Delivery across the island",
+      "f1.text": "Patong, Karon, Kata, Rawai, Kamala, Bang Tao and other areas.",
+      "f2.title": "Rubles from Russian cards",
+      "f2.text": "Transfer rubles from a card or account — get baht on the spot.",
+      "f3.title": "USDT",
+      "f3.text": "We accept USDT on TRC-20 and ERC-20.",
+      "f4.title": "Transfers to Thai accounts",
+      "f4.text": "Pay for a villa, bike rental, school or other services directly.",
+      "f5.title": "Large amounts",
+      "f5.text": "Personal rate for deals from 1M ₽.",
+      "f6.title": "Fast",
+      "f6.text": "Cash is usually delivered within 1–2 hours after confirmation.",
+      "footer.disclaimer": "Rates are for information only and do not constitute a public offer.",
+      "live.loading": "Loading…",
+      "live.on": "Live",
+      "live.off": "Offline",
+      "rate.na": "On request",
+      "rate.updated": "Updated at ",
+      "rate.auto": "The rate updates automatically",
+      "calc.wait": "Waiting for the rate…",
+      "calc.na": "Rate unavailable — please ask on Telegram.",
+      "calc.rate": "Rate: ",
+    },
+  };
+  document.querySelectorAll("[data-i18n]").forEach((el) => { I18N.ru[el.dataset.i18n] ??= el.innerHTML; });
+
+  let lang = "ru";
+  let quote = null;
+  let status = "loading";
+  let dir = "rub-local";
+
+  const t = (key) => I18N[lang][key] ?? I18N.ru[key];
+  const locale = () => (lang === "en" ? "en-US" : "ru-RU");
+  const fmt = (n, d = 2) => new Intl.NumberFormat(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }).format(n);
+  const rateText = (key) => key.includes("Usdt")
+    ? `1 USDT = ${fmt(quote[key])} ${SYMBOL}`
+    : `1 ${SYMBOL} = ${fmt(quote[key], 3)} ₽`;
+
+  function setLang(next) {
+    lang = I18N[next] ? next : "ru";
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    document.title = t("meta.title");
+    document.querySelector('meta[name="description"]').content = t("meta.desc");
+    document.querySelectorAll("[data-i18n]").forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+    document.querySelectorAll("[data-lang]").forEach((b) => b.classList.toggle("active", b.dataset.lang === lang));
+    render();
+  }
+
+  function detectLang() {
+    let saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    return new URLSearchParams(location.search).get("lang") || saved || (navigator.language.startsWith("ru") ? "ru" : "en");
+  }
+
+  function fetchRate() {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = RATE_URL + "?t=" + Date.now();
+      s.onload = () => { s.remove(); window.RATE?.[LOCAL] ? resolve(window.RATE) : reject(new Error("RATE missing")); };
+      s.onerror = () => { s.remove(); reject(new Error("rate.js not loaded")); };
+      document.head.appendChild(s);
+    });
+  }
+
+  async function loadRates() {
+    try {
+      const json = await fetchRate();
+      quote = { ...json[LOCAL], updatedAt: json.updatedAt };
+      status = "ok";
+    } catch (e) {
+      if (!quote) status = "error";
+    }
+    render();
+  }
+
+  function render() {
+    const ok = status === "ok";
+    for (const key of ["usdtToLocal", "localToUsdt", "rubToLocal", "localToRub"]) {
+      const el = $("r-" + key);
+      el.textContent = ok ? fmt(quote[key], key.includes("Usdt") ? 2 : 3) : status === "error" ? t("rate.na") : "—";
+      el.classList.toggle("na", !ok);
+    }
+    $("live").classList.toggle("on", ok);
+    $("live-text").textContent = t(ok ? "live.on" : status === "error" ? "live.off" : "live.loading");
+    $("updated").textContent = ok ? t("rate.updated") + new Date(quote.updatedAt).toLocaleTimeString(locale()) : t("rate.auto");
+    calc();
+  }
+
+  function calc() {
+    const d = DIRS[dir];
+    $("cur-from").textContent = d.from;
+    $("cur-to").textContent = d.to;
+    if (!quote) {
+      $("result").textContent = "—";
+      $("calc-note").textContent = t(status === "error" ? "calc.na" : "calc.wait");
+      return;
+    }
+    const amount = parseFloat($("amount").value) || 0;
+    $("result").textContent = fmt(d.calc(amount, quote[d.key]));
+    $("calc-note").textContent = t("calc.rate") + rateText(d.key);
+  }
+
+  document.querySelectorAll(".switch button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".switch button").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      dir = btn.dataset.dir;
+      $("amount").value = DIRS[dir].amount;
+      calc();
+    });
+  });
+  document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+  $("amount").addEventListener("input", calc);
+  $("year").textContent = new Date().getFullYear();
+
+  setLang(detectLang());
+  loadRates();
+  setInterval(loadRates, 60000);
+</script>
+</body>
+</html>
